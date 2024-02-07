@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ApplicationPackage SchemaVersion="1.0" AutodeskProduct="AutoCAD" ProductType="Application" Name="FirstAutoCADPlugin" OnlineDocumentation="http://www.example.com">
+<ApplicationPackage SchemaVersion="1.0" AutodeskProduct="AutoCAD" ProductType="Application" Name="FirstAutoCAD_Plugin" OnlineDocumentation="http://www.example.com">
   <CompanyDetails Name="IhrFirmenname" Email="info@example.com" Url="http://www.example.com" />
-  <RuntimeRequirements OS="Win64" Platform="AutoCAD" SeriesMin="R19.0" SeriesMax="R23.0"/>
+  <RuntimeRequirements OS="Win64" Platform="AutoCAD" SeriesMin="R19.0"/>
   <Components>
-    <ComponentEntry AppName="FirstAutoCADPlugin" Version="1.0" ModuleName="./Contents/FirstAutoCADPlugin.dll" AppDescription="Ein einfaches AutoCAD Plugin zur Anzeige von Blockattributen" LoadOnAutoCADStartup="true">
+    <ComponentEntry AppName="FirstAutoCAD_Plugin" Version="1.0" ModuleName="./Contents/FirstAutoCAD_Plugin.dll" AppDescription="Ein einfaches AutoCAD Plugin zur Anzeige von Blockattributen" LoadOnAutoCADStartup="true">
       <Commands GroupName="MeinePluginBefehle">
         <Command Global="GetBlockAttributes" Local="GetBlockAttributes" />
       </Commands>
-      <RuntimeRequirements OS="Win64" Platform="AutoCAD" SeriesMin="R19.0" SeriesMax="R23.0"/>
+      <RuntimeRequirements OS="Win64" Platform="AutoCAD" SeriesMin="R19.0"/>
     </ComponentEntry>
   </Components>
 </ApplicationPackage>
