@@ -54,8 +54,9 @@ Namespace FirstAutoCAD_Plugin
             ' create a form using .NET Windows Forms
             Dim form As New Form() With {
                 .Text = "Block Attributes",
-                .Size = New System.Drawing.Size(400, 800),
-                .StartPosition = FormStartPosition.CenterScreen
+                .StartPosition = FormStartPosition.CenterScreen,
+                .AutoScroll = True,
+                .AutoSize = True
             }
 
             ' create a label as title for the block information 
