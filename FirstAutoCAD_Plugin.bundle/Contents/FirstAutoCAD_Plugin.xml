@@ -1,0 +1,62 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+FirstAutoCAD_Plugin
+</name>
+</assembly>
+<members>
+<member name="T:FirstAutoCAD_Plugin.My.Resources.Resources">
+<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member>
+<member name="P:FirstAutoCAD_Plugin.My.Resources.Resources.ResourceManager">
+<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member>
+<member name="P:FirstAutoCAD_Plugin.My.Resources.Resources.Culture">
+<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member>
+<member name="T:FirstAutoCAD_Plugin.myCommands">
+<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member>
+<member name="P:FirstAutoCAD_Plugin.myCommands.ResourceManager">
+<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member>
+<member name="P:FirstAutoCAD_Plugin.myCommands.Culture">
+<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member>
+<member name="P:FirstAutoCAD_Plugin.myCommands.MyCommandLocal">
+<summary>
+  Looks up a localized string similar to MyCommand.
+</summary>
+</member>
+<member name="P:FirstAutoCAD_Plugin.myCommands.MyLispFunctionLocal">
+<summary>
+  Looks up a localized string similar to MyLispFunction.
+</summary>
+</member>
+<member name="P:FirstAutoCAD_Plugin.myCommands.MyPickFirstLocal">
+<summary>
+  Looks up a localized string similar to MyPickFirst.
+</summary>
+</member>
+<member name="P:FirstAutoCAD_Plugin.myCommands.MySessionCmdLocal">
+<summary>
+  Looks up a localized string similar to MySessionCmd.
+</summary>
+</member>
+</members>
+</doc>

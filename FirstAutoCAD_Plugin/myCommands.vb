@@ -129,7 +129,7 @@ Namespace FirstAutoCAD_Plugin
                     Dim attRef As AttributeReference = TryCast(transaction.GetObject(attId, OpenMode.ForRead), AttributeReference)
                     If attRef IsNot Nothing Then ' if attribute exists add it to the dictionary
                         ' add the attribute tag and value to the dictionary
-                        Dim attValue As String = If(String.IsNullOrWhiteSpace(attRef.TextString) OrElse attRef.TextString.Contains("#"), "No Value Provided", attRef.TextString)
+                        Dim attValue As String = If(String.IsNullOrWhiteSpace(attRef.TextString), "No Value Provided", attRef.TextString)
 
                         If Not blockInfo.ContainsKey(attRef.Tag) Then ' check if the tag already exists in the dictionary
                             blockInfo.Add(attRef.Tag, attValue)
