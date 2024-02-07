@@ -1,8 +1,8 @@
 #FirstAutoCAD_Plugin
 
 ## How to use
-
-```GetBlockAttributes```
+1. Import the Plugin using the .bundle-Folder or load the FirstAutoCAD_Plugin.dll using the NETLOAD Command in the AutoCAD-Commandline
+2. Use the ```GetBlockAttributes``` Command and select a Block to get its attributes and to be able to export them into a .csv file
 
 ## Screenshots
 
