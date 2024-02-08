@@ -7,6 +7,7 @@ Imports Autodesk.AutoCAD.EditorInput
 Imports Autodesk.AutoCAD.Runtime
 
 Imports Application = Autodesk.AutoCAD.ApplicationServices.Application ' to avoid ambiguity with System.Windows.Forms.Application
+Imports OfficeOpenXml ' EEPlus library for creating excel files
 
 
 <Assembly: CommandClass(GetType(FirstAutoCAD_Plugin.MyCommands))>
@@ -51,6 +52,7 @@ Namespace FirstAutoCAD_Plugin
 
         Private Sub ShowDialog(ByVal blockRef As BlockReference)
 
+
             ' create a form using .NET Windows Forms
             Dim form As New Form() With {
                 .Text = "Block Attributes",
@@ -85,16 +87,32 @@ Namespace FirstAutoCAD_Plugin
 
             Next
 
-            ' export button
-            Dim exportButton As New Button() With {
+
+
+            ' Buttons for exporting the block attributes to csv and xlsx
+
+            ' csv export button
+            Dim exportCSVButton As New Button() With {
                 .Text = "Export to CSV",
                 .Location = New System.Drawing.Point(10, yPos),
                 .AutoSize = True
             }
-            AddHandler exportButton.Click, Sub(sender, e) ExportToCsv(blockInfo) ' click event for export btn
-            form.Controls.Add(exportButton)
+            AddHandler exportCSVButton.Click, Sub(sender, e) ExportToCsv(blockInfo) ' click event for csv export btn
+            form.Controls.Add(exportCSVButton)
 
-            Dim closeButtonXPos As Integer = exportButton.Right + 10 ' calc the xPos for the close btn to be next to the export btn
+            Dim exportXSLXButtonXPos As Integer = exportCSVButton.Right + 10 ' calc the xPos for the export xslx btn to be next to the csv export btn
+
+
+            ' xslx export button
+            Dim exportXSLXButton As New Button() With {
+                .Text = "Export to XSLX",
+                .Location = New System.Drawing.Point(exportXSLXButtonXPos, yPos),
+                .AutoSize = True
+            }
+            AddHandler exportXSLXButton.Click, Sub(sender, e) ExportToXLSX(blockInfo) ' click event for xsls export btn
+            form.Controls.Add(exportXSLXButton)
+
+            Dim closeButtonXPos As Integer = exportXSLXButton.Right + 10 ' calc the xPos for the close btn to be next to the xsls export btn
 
             ' close button
             Dim closeButton As New Button() With {
@@ -176,6 +194,53 @@ Namespace FirstAutoCAD_Plugin
                     Catch ex As Exception
                         ' show a message box if an error occurs
                         MessageBox.Show($"An error occured while exporting: {ex.Message}", "Export Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    End Try
+                End If
+            End Using
+        End Sub
+
+        Private Sub ExportToXLSX(ByVal blockInfo As Dictionary(Of String, String))
+            ' create a save file dialog to allow the user to select a file path
+            Using saveBlockAttributes As New SaveFileDialog()
+                ' set the save file dialog properties to xlsx and set the initial directory to the users doc folder
+                With saveBlockAttributes
+                    .Filter = "Excel files (*.xlsx)|*.xlsx"
+                    .Title = "Save block attributes to Excel"
+                    .FileName = "BlockAttributes.xlsx"
+                    .InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
+                End With
+
+                If saveBlockAttributes.ShowDialog() = DialogResult.OK Then ' ff the user selects a file path
+
+                    Try
+                        ' create a new excel package using the EEPlus lib
+                        Using package As New ExcelPackage()
+
+                            ' create a new worksheet and set the column headers
+                            Dim worksheet = package.Workbook.Worksheets.Add("Attributes")
+                            worksheet.Cells("A1").Value = "Tag"
+                            worksheet.Cells("B1").Value = "Value"
+
+
+                            Dim row As Integer = 2 ' row start at 2 bcs the first row is the column headers
+
+                            ' iterate through blockInfo and add a row for each key-value pair
+                            For Each entry As KeyValuePair(Of String, String) In blockInfo
+                                worksheet.Cells(row, 1).Value = entry.Key
+                                worksheet.Cells(row, 2).Value = entry.Value
+                                row += 1
+                            Next
+
+                            ' save the excel package to a file
+                            Dim fileInfo As New FileInfo(saveBlockAttributes.FileName)
+                            package.SaveAs(fileInfo)
+                        End Using
+
+                        ' show a message box to confirm the export
+                        MessageBox.Show("Block attributes successfully exported to .xsls", "Export Successful", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Catch ex As Exception
+                        ' show a message box if an error occurs
+                        MessageBox.Show($"An error occurred while exporting: {ex.Message}", "Export Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     End Try
                 End If
             End Using
